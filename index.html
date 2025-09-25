@@ -1,740 +1,634 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Automator AI - Cỗ máy nội dung WordPress tự động hóa</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <meta name="description" content="Generate unlimited SEO-optimized WordPress articles with AI research, custom images, and smart linking. Turn one topic into a traffic magnet in a few minutes.">
+    <title>Blog Automator AI - WordPress Content That Writes, Ranks & Scales Itself</title>
 
-        :root {
-            --primary: #8b5cf6;
-            --primary-dark: #7c3aed;
-            --secondary: #ec4899;
-            --accent: #06b6d4;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --dark: #1f2937;
-            --light: #f9fafb;
-            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-        }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: #374151;
-            overflow-x: hidden;
-        }
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Navigation */
-        nav {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        nav .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #6b7280;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .btn-primary {
-            background: var(--gradient-1);
-            color: white;
-            padding: 0.75rem 2rem;
-            border: none;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 120px 0 80px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-            position: relative;
-            overflow: hidden;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            pointer-events: none;
-        }
-
-        .hero-content {
-            text-align: center;
-            color: white;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            font-weight: 800;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            animation: slideInDown 0.8s ease;
-        }
-
-        @keyframes slideInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero .subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-            animation: slideInUp 0.8s ease 0.2s both;
-        }
-
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            animation: fadeIn 0.8s ease 0.4s both;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .btn-secondary {
-            background: white;
-            color: var(--primary);
-            padding: 0.75rem 2rem;
-            border: none;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .btn-secondary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        /* Problem Section */
-        .problem-section {
-            padding: 80px 0;
-            background: var(--light);
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: var(--dark);
-            font-weight: 700;
-        }
-
-        .problem-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .problem-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-            border-left: 4px solid var(--secondary);
-        }
-
-        .problem-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-        }
-
-        .problem-card h3 {
-            color: var(--secondary);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Features Section */
-        .features {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 3rem;
-            margin-top: 3rem;
-        }
-
-        .feature-card {
-            padding: 2.5rem;
-            border-radius: 20px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: var(--gradient-1);
-        }
-
-        .feature-card:nth-child(1) { background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%); }
-        .feature-card:nth-child(2) { background: linear-gradient(135deg, #f093fb15 0%, #f5576c15 100%); }
-        .feature-card:nth-child(3) { background: linear-gradient(135deg, #4facfe15 0%, #00f2fe15 100%); }
-        .feature-card:nth-child(4) { background: linear-gradient(135deg, #43e97b15 0%, #38f9d715 100%); }
-        .feature-card:nth-child(5) { background: linear-gradient(135deg, #fa709a15 0%, #fee14015 100%); }
-        .feature-card:nth-child(6) { background: linear-gradient(135deg, #30cfd015 0%, #33086715 100%); }
-
-        .feature-card:nth-child(2)::before { background: var(--gradient-2); }
-        .feature-card:nth-child(3)::before { background: var(--gradient-3); }
-        .feature-card:nth-child(4)::before { background: var(--gradient-4); }
-        .feature-card:nth-child(5)::before { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
-        .feature-card:nth-child(6)::before { background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .feature-card p {
-            color: #6b7280;
-            line-height: 1.8;
-        }
-
-        /* Roadmap Section */
-        .roadmap {
-            padding: 80px 0;
-            background: linear-gradient(135deg, #667eea05 0%, #764ba205 100%);
-        }
-
-        .roadmap-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .roadmap-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .roadmap-card::after {
-            content: 'Coming Soon';
-            position: absolute;
-            top: 10px;
-            right: -30px;
-            background: var(--warning);
-            color: white;
-            padding: 5px 40px;
-            font-size: 0.75rem;
-            transform: rotate(45deg);
-            font-weight: 600;
-        }
-
-        .roadmap-card h3 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Pricing Section */
-        .pricing {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 3rem;
-            margin-top: 3rem;
-        }
-
-        .pricing-card {
-            background: white;
-            border-radius: 20px;
-            padding: 3rem 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            position: relative;
-            transition: transform 0.3s;
-        }
-
-        .pricing-card.featured {
-            background: var(--gradient-1);
-            color: white;
-            transform: scale(1.05);
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .pricing-card.featured:hover {
-            transform: scale(1.05) translateY(-10px);
-        }
-
-        .pricing-header h3 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .pricing-price {
-            font-size: 3rem;
-            font-weight: bold;
-            margin: 1.5rem 0;
-        }
-
-        .pricing-price .currency {
-            font-size: 1.5rem;
-        }
-
-        .pricing-price .period {
-            font-size: 1rem;
-            opacity: 0.8;
-        }
-
-        .pricing-features {
-            list-style: none;
-            margin: 2rem 0;
-        }
-
-        .pricing-features li {
-            padding: 0.75rem 0;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .pricing-card.featured .pricing-features li {
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .check {
-            color: var(--success);
-            font-weight: bold;
-        }
-
-        .pricing-card.featured .check {
-            color: white;
-        }
-
-        /* CTA Section */
-        .cta {
-            padding: 100px 0;
-            background: var(--gradient-1);
-            text-align: center;
-            color: white;
-        }
-
-        .cta h2 {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .cta p {
-            font-size: 1.25rem;
-            margin-bottom: 2.5rem;
-            opacity: 0.95;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 3rem 0;
-            text-align: center;
-        }
-
-        footer p {
-            opacity: 0.8;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero .subtitle {
-                font-size: 1.25rem;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .pricing-card.featured {
-                transform: none;
-            }
-
-            .cta h2 {
-                font-size: 2rem;
-            }
-        }
-
-        /* Animations */
-        .fade-in {
-            animation: fadeIn 0.8s ease;
-        }
-
-        .slide-in {
-            animation: slideInUp 0.8s ease;
-        }
-
-        /* Utility Classes */
-        .badge {
-            background: var(--accent);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 1rem;
-        }
-
-        .highlight {
-            background: linear-gradient(120deg, #f9c74f 0%, #f9844a 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <div class="logo">🚀 Blog Automator AI</div>
-            <div class="nav-links">
-                <a href="#features">Tính năng</a>
-                <a href="#pricing">Giá cả</a>
-                <a href="#roadmap">Lộ trình</a>
-                <a href="#" class="btn-primary" style="color: white;">Bắt đầu ngay</a>
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav-brand">
+                <img src="images/logo-icon-32.png" alt="Blog Automator AI" class="logo-icon">
+                <span class="logo-text">Blog Automator AI</span>
             </div>
-        </div>
-    </nav>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#pricing" class="btn btn-primary btn-sm">Get Pro Now</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Cỗ Máy Nội Dung WordPress<br>Tự Động Hóa Hoàn Toàn</h1>
-                <p class="subtitle">Biến chủ đề thành bài viết thu hút lưu lượng trong vài phút, không phải hàng giờ</p>
-                <div class="hero-buttons">
-                    <a href="#" class="btn-secondary">Dùng thử miễn phí</a>
-                    <a href="#pricing" class="btn-primary">Xem giá Pro →</a>
-                </div>
-            </div>
-        </div>
-    </section>
+    <main>
+        <section class="hero" id="home">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="badge badge-premium">AI-Powered Content Generation</div>
+                    <h1 class="hero-title">High-Quality, Research-Backed Content on Autopilot</h1>
+                    <p class="hero-subtitle">Turn One Topic Into a Traffic Magnet in a Few Minutes.</p>
+                    <p class="hero-description">Generate unlimited SEO-optimized articles with AI research, custom images, and smart linking - all published directly to WordPress while you sleep.</p>
 
-    <!-- Problem Section -->
-    <section class="problem-section">
-        <div class="container">
-            <h2 class="section-title">Khủng Hoảng Tạo Nội Dung: Có Quen Thuộc Không?</h2>
-            <div class="problem-grid">
-                <div class="problem-card">
-                    <h3>⏰ Tốn thời gian</h3>
-                    <p>Mất 4-6 tiếng để nghiên cứu và viết một bài blog, nhưng vẫn lo lắng liệu nó có lên top không?</p>
-                </div>
-                <div class="problem-card">
-                    <h3>💸 Chi phí cao</h3>
-                    <p>Chi hàng triệu mỗi tháng cho các cây viết tự do, nhưng chỉ nhận về những bài viết chung chung, thiếu sức hút?</p>
-                </div>
-                <div class="problem-card">
-                    <h3>🤖 AI cơ bản</h3>
-                    <p>Dùng các công cụ AI cơ bản, tạo ra nội dung mỏng, khô khan, bị Google bỏ qua và độc giả lướt qua?</p>
-                </div>
-                <div class="problem-card">
-                    <h3>📈 Khó mở rộng</h3>
-                    <p>Đau đầu duy trì tính nhất quán cho nhiều trang web khách hàng hoặc dự án ngách?</p>
-                </div>
-                <div class="problem-card">
-                    <h3>📝 Lịch trình trì trệ</h3>
-                    <p>Lịch biên tập của bạn phủ bụi vì không thể đáp ứng nhu cầu nội dung mới liên tục?</p>
-                </div>
-                <div class="problem-card">
-                    <h3>🎯 Bỏ lỡ cơ hội</h3>
-                    <p>Bỏ lỡ cơ hội vì mải mê với việc tạo nội dung thay vì tập trung vào chiến lược và phát triển?</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <div class="container">
-            <h2 class="section-title">Tính Năng Mạnh Mẽ Giúp Nội Dung Của Bạn Nổi Bật</h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🔬</div>
-                    <h3>Chế độ nghiên cứu sâu & sâu hơn</h3>
-                    <p>Hệ thống nghiên cứu tiên tiến đi sâu vào chủ đề qua nhiều lớp phân tích. Thu thập dữ liệu, phân tích nội dung cạnh tranh, tìm ra lỗ hổng kiến thức và tổng hợp thông tin để tạo ra bài viết có tính uy tín và góc nhìn độc đáo.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h3>Tạo nội dung đa ngôn ngữ</h3>
-                    <p>Tạo nội dung chuẩn bản địa bằng bất kỳ ngôn ngữ nào. Không phải bản dịch - mà là những bài viết gốc, phù hợp văn hóa, được viết trực tiếp bằng ngôn ngữ mục tiêu với sắc thái khu vực.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🖼️</div>
-                    <h3>Nhiều hình ảnh do AI tạo</h3>
-                    <p>Mỗi bài viết trở nên sống động với hình ảnh do AI tạo ra. Hệ thống tự động tạo hình ảnh nổi bật thu hút trên mạng xã hội, cùng với hình ảnh minh họa cho từng phần.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔗</div>
-                    <h3>Liên kết SEO thông minh</h3>
-                    <p>Plugin tự động quét nội dung hiện có để thêm các liên kết nội bộ liên quan, tăng sức mạnh trang. Bổ sung liên kết đến các nguồn bên ngoài đáng tin cậy từ quá trình nghiên cứu.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🏷️</div>
-                    <h3>Tự động phân loại & gắn thẻ</h3>
-                    <p>Hệ thống phân tích mỗi bài viết để tự động gán danh mục WordPress phù hợp nhất và tạo bộ thẻ SEO toàn diện, cải thiện khả năng khám phá.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎨</div>
-                    <h3>Tùy chỉnh giọng điệu & cấu trúc</h3>
-                    <p>Xác định giọng điệu độc đáo của thương hiệu bằng cách chỉ định đối tượng mục tiêu, phong cách, mức độ phức tạp và cấu trúc nội dung.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Roadmap Section -->
-    <section id="roadmap" class="roadmap">
-        <div class="container">
-            <h2 class="section-title">Sắp Ra Mắt: Tính Năng Đột Phá</h2>
-            <div class="roadmap-grid">
-                <div class="roadmap-card">
-                    <h3>📊 Bộ công cụ SEO nâng cao</h3>
-                    <p>Công cụ nghiên cứu từ khóa tích hợp, khám phá các từ khóa giá trị cao, ít cạnh tranh. Tự động tạo tiêu đề meta, mô tả và slug URL được tối ưu hóa.</p>
-                </div>
-                <div class="roadmap-card">
-                    <h3>🧠 Cơ sở tri thức</h3>
-                    <p>Huấn luyện AI dựa trên sản phẩm, dịch vụ, lịch sử công ty và tài liệu nội bộ của bạn. Đảm bảo mỗi bài viết phản ánh chính xác giá trị độc đáo.</p>
-                </div>
-                <div class="roadmap-card">
-                    <h3>🤖 Động cơ AI đa mô hình</h3>
-                    <p>Hỗ trợ nhiều mô hình ngôn ngữ hàng đầu như GPT của OpenAI, Gemini của Google, Flux. Chọn động cơ AI phù hợp cho từng loại nội dung.</p>
-                </div>
-                <div class="roadmap-card">
-                    <h3>🚀 Xử lý song song</h3>
-                    <p>Tạo nhiều bài viết hoàn chỉnh cùng lúc. Biến công việc từng mất vài tuần thành vài giờ - lý tưởng cho việc ra mắt trang mới.</p>
-                </div>
-                <div class="roadmap-card">
-                    <h3>🛡️ Xử lý lỗi nâng cao</h3>
-                    <p>Không bao giờ mất nội dung hay lãng phí tài nguyên. Hệ thống tự động thử lại và ghi nhật ký mạnh mẽ đảm bảo hoạt động mượt mà.</p>
-                </div>
-                <div class="roadmap-card">
-                    <h3>📈 Phân tích hiệu suất</h3>
-                    <p>Theo dõi hiệu suất bài viết, tương tác độc giả và tối ưu hóa chiến lược nội dung dựa trên dữ liệu thực tế.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section id="pricing" class="pricing">
-        <div class="container">
-            <h2 class="section-title">Chọn Tốc Độ Nội Dung Của Bạn</h2>
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <div class="pricing-header">
-                        <div class="badge">Thử nghiệm</div>
-                        <h3>Gói Miễn Phí</h3>
-                        <p>Lý tưởng cho blogger và trang nhỏ</p>
+                    <div class="hero-cta">
+                        <a href="#pricing" class="btn btn-primary btn-lg btn-cta-main">Get Pro - Save 40% Today</a>
+                        <a href="#pricing" class="btn btn-secondary btn-lg">View Pricing</a>
                     </div>
-                    <div class="pricing-price">
-                        <span class="currency">$</span>0
-                        <span class="period">/tháng</span>
+
+                    <div class="hero-preview">
+                        <div class="preview-container">
+                            <img src="images/blog-automator-pro-WP-plugin-screenshot-1.jpeg" alt="Blog Automator Interface - Simple Content Generation" class="hero-screenshot">
+                            <div class="preview-glow"></div>
+                        </div>
                     </div>
-                    <ul class="pricing-features">
-                        <li><span class="check">✓</span> Tối đa 10 bài/tháng</li>
-                        <li><span class="check">✓</span> Bài viết tối đa 1.000 từ</li>
-                        <li><span class="check">✓</span> Tối đa 3 chương/bài</li>
-                        <li><span class="check">✓</span> Nghiên cứu AI cơ bản</li>
-                        <li><span class="check">✓</span> Hỗ trợ đa ngôn ngữ</li>
-                        <li><span class="check">✓</span> Tùy chỉnh đối tượng</li>
-                    </ul>
-                    <a href="#" class="btn-secondary" style="width: 100%; text-align: center; margin-top: 2rem;">Bắt đầu miễn phí</a>
-                </div>
-                <div class="pricing-card featured">
-                    <div class="pricing-header">
-                        <div class="badge" style="background: white; color: var(--primary);">Phổ biến nhất</div>
-                        <h3>Gói Pro</h3>
-                        <p>Thay đổi chiến lược nội dung của bạn</p>
-                    </div>
-                    <div class="pricing-price">
-                        <span class="currency">$</span>59
-                        <span class="period">/năm</span>
-                    </div>
-                    <ul class="pricing-features">
-                        <li><span class="check">✓</span> <strong>Không giới hạn</strong> bài viết</li>
-                        <li><span class="check">✓</span> Độ dài bài viết tùy chỉnh</li>
-                        <li><span class="check">✓</span> Không giới hạn chương</li>
-                        <li><span class="check">✓</span> Chế độ nghiên cứu sâu hơn</li>
-                        <li><span class="check">✓</span> Nhiều hình ảnh AI</li>
-                        <li><span class="check">✓</span> Liên kết thông minh</li>
-                        <li><span class="check">✓</span> Tự động gán danh mục</li>
-                        <li><span class="check">✓</span> Tự động tạo thẻ SEO</li>
-                        <li><span class="check">✓</span> Metadata SEO (sắp có)</li>
-                        <li><span class="check">✓</span> Cơ sở tri thức (sắp có)</li>
-                        <li><span class="check">✓</span> Tạo song song (sắp có)</li>
-                        <li><span class="check">✓</span> Hỗ trợ ưu tiên</li>
-                    </ul>
-                    <a href="#" class="btn-secondary" style="width: 100%; text-align: center; margin-top: 2rem; background: white; color: var(--primary);">Nâng cấp ngay</a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- CTA Section -->
-    <section class="cta">
-        <div class="container">
-            <h2>Thay Đổi Chiến Lược Nội Dung Ngay Hôm Nay</h2>
-            <p>Blog Automator AI không chỉ là một plugin - đó là lợi thế cạnh tranh của bạn trong cuộc đua nội dung.</p>
-            <p style="font-size: 1.5rem; font-weight: bold; margin: 2rem 0;">🚀 Nơi mọi chủ đề đều trở thành lưu lượng</p>
-            <div class="hero-buttons">
-                <a href="#" class="btn-secondary">Bắt đầu miễn phí</a>
-                <a href="#" class="btn-primary" style="background: white; color: var(--primary);">Xem demo →</a>
+        <section class="problem section-padding">
+            <div class="container">
+                <div class="section-header center">
+                    <h2 class="section-title">The $4,000/Month Content Problem Nobody Talks About</h2>
+                    <p class="section-subtitle">You know the math doesn't work.</p>
+                </div>
+
+                <div class="problem-grid">
+                    <div class="problem-card">
+                        <div class="problem-icon">💸</div>
+                        <h3>Expensive & Slow</h3>
+                        <p>Hiring writers costs $100-300 per article. Agencies charge $4,000+ monthly.</p>
+                    </div>
+                    <div class="problem-card">
+                        <div class="problem-icon">🤖</div>
+                        <h3>Cheap & Worthless</h3>
+                        <p>AI tools spit out thin content Google hates. Zero traffic, zero value.</p>
+                    </div>
+                    <div class="problem-card">
+                        <div class="problem-icon">📉</div>
+                        <h3>Falling Behind</h3>
+                        <p>Competitors publish daily. Their organic traffic grows. Yours doesn't.</p>
+                    </div>
+                </div>
+
+                <div class="callout">
+                    <p class="callout-text"><strong>There's a reason 87% of content gets zero traffic from Google.</strong></p>
+                    <p>Most content is either expensive and slow (human) or cheap and worthless (basic AI).</p>
+                    <p class="callout-highlight">Until now.</p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Footer -->
-    <footer>
+        <section class="solution section-padding" id="features">
+            <div class="container">
+                <div class="section-header center">
+                    <h2 class="section-title">Meet Blog Automator: The Unfair Advantage 2,847 Content Creators Already Use</h2>
+                    <p class="section-subtitle">One click. Multiple AI models. Complete articles.</p>
+                </div>
+
+                <p class="solution-intro">While others spend 6 hours per post, Blog Automator transforms any topic into comprehensive, Google-loved content in minutes:</p>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔬</div>
+                        <h3>Two-Tier Deep Research System</h3>
+                        <p>Unlike shallow AI writers that regurgitate common knowledge, our advanced research engine dives deep into your topic through multiple layers of investigation. It gathers data, analyzes competing content, identifies knowledge gaps, and synthesizes information to create articles with genuine authority and unique insights that search engines reward.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Intelligent Multi-Language Generation</h3>
+                        <p>Create native-level content in any language your audience speaks. Not translations, but original, culturally-aware articles written directly in your target language. Each piece is crafted with regional nuances and local search intent in mind, helping you dominate international markets.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🖼️</div>
+                        <h3>Automated Visual Storytelling</h3>
+                        <p>Every article comes alive with custom AI-generated imagery. The system automatically creates a stunning featured image that captures attention in social feeds, plus unique chapter images that break up text and enhance reader engagement. No more stock photo hunting or expensive graphic design subscriptions.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🔗</div>
+                        <h3>Smart Linking Architecture</h3>
+                        <p>Watch your site's SEO authority soar with intelligent linking. The plugin automatically scans your existing content to weave in relevant internal links that boost page authority and keep readers on your site longer. It also adds credible external source links from its research, establishing your content as a trusted resource.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🏷️</div>
+                        <h3>AI-Powered Taxonomy</h3>
+                        <p>Let artificial intelligence organize your content perfectly. The system analyzes each article to automatically assign the most relevant WordPress categories and generates a comprehensive set of SEO tags that improve discoverability and help search engines understand your content's context.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <h3>Customizable Voice & Structure</h3>
+                        <p>Define your brand's unique voice by specifying target audience, tone, complexity level, and content structure. Control everything from the number of chapters to total word count, ensuring every article aligns perfectly with your content strategy and brand guidelines.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="showcase section-padding">
+            <div class="container">
+                <div class="section-header center">
+                    <h2 class="section-title">See It In Action</h2>
+                    <p class="section-subtitle">From setup to published content in minutes</p>
+                </div>
+
+                <div class="showcase-grid">
+                    <div class="showcase-step">
+                        <div class="step-number">1</div>
+                        <h3>Simple Setup</h3>
+                        <p>Enter your topic and preferences in our intuitive interface</p>
+                        <div class="showcase-image">
+                            <img src="images/blog-automator-pro-WP-plugin-screenshot-2.jpeg" alt="Blog Automator Setup Interface" class="step-screenshot">
+                        </div>
+                    </div>
+
+                    <div class="showcase-step">
+                        <div class="step-number">2</div>
+                        <h3>AI Research & Writing</h3>
+                        <p>Watch as AI conducts deep research and writes comprehensive content</p>
+                        <div class="showcase-image">
+                            <img src="images/blog-automator-pro-WP-plugin-screenshot-3.jpeg" alt="AI Content Generation Process" class="step-screenshot">
+                        </div>
+                    </div>
+
+                    <div class="showcase-step">
+                        <div class="step-number">3</div>
+                        <h3>Perfect Results</h3>
+                        <p>Professional articles with images, formatting, and SEO optimization</p>
+                        <div class="showcase-image">
+                            <img src="images/blog-automator-pro-WP-plugin-screenshot-6.jpeg" alt="Generated Blog Post Result" class="step-screenshot">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="showcase-comparison">
+                    <div class="comparison-side">
+                        <h3>WordPress Backend</h3>
+                        <div class="comparison-image">
+                            <img src="images/blog-automator-pro-WP-plugin-screenshot-8.jpeg" alt="WordPress Editor View" class="comparison-screenshot">
+                        </div>
+                    </div>
+                    <div class="comparison-divider">
+                        <div class="divider-icon">⚡</div>
+                    </div>
+                    <div class="comparison-side">
+                        <h3>Frontend Result</h3>
+                        <div class="comparison-image">
+                            <img src="images/blog-automator-pro-WP-plugin-screenshot-9.jpeg" alt="Published Blog Post Frontend" class="comparison-screenshot">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="coming-soon section-padding">
+            <div class="container">
+                <div class="section-header center">
+                    <h2 class="section-title">Coming Soon: The Features That Will Break the Internet</h2>
+                    <p class="section-subtitle">Your Pro license includes all future updates</p>
+                </div>
+
+                <div class="coming-grid">
+                    <div class="coming-card">
+                        <div class="coming-icon">🧠</div>
+                        <h3>Context-Aware Content with Knowledge Base</h3>
+                        <p>Train the AI on your specific products, services, company history, and internal documentation. Create a custom knowledge base that ensures every article accurately represents your brand's unique value propositions, technical specifications, and messaging guidelines - eliminating generic content forever.</p>
+                    </div>
+                    <div class="coming-card">
+                        <div class="coming-icon">🚀</div>
+                        <h3>Enhanced Parallel Processing</h3>
+                        <p>Supercharge your content pipeline with true parallel post creation. Generate multiple complete articles simultaneously, turning what used to take weeks into hours. Perfect for launching new sites, seasonal campaigns, or aggressive content scaling.</p>
+                    </div>
+                    <div class="coming-card">
+                        <div class="coming-icon">📊</div>
+                        <h3>Advanced SEO Suite</h3>
+                        <p>Take your optimization to the next level with built-in keyword research tools that discover high-value, low-competition terms. Automatically generate perfectly crafted meta titles, descriptions, and URL slugs that maximize click-through rates and search visibility.</p>
+                    </div>
+                    <div class="coming-card">
+                        <div class="coming-icon">🛡️</div>
+                        <h3>Advanced Error Handling & Reliability</h3>
+                        <p>Never lose work or waste credits again. Our upcoming auto-retry system and robust logging ensure seamless operation even when APIs hiccup. Get detailed insights into your content generation process and troubleshoot issues instantly.</p>
+                    </div>
+                    <div class="coming-card">
+                        <div class="coming-icon">🤖</div>
+                        <h3>Multi-Model AI Engine</h3>
+                        <p>Gain ultimate flexibility with support for multiple leading language models including OpenAI's GPT series, Google's Gemini, Flux, and more. Choose the perfect AI engine for each type of content, optimizing for creativity, accuracy, or cost-effectiveness based on your specific needs.</p>
+                    </div>
+                    <div class="coming-card">
+                        <div class="coming-icon">🔔</div>
+                        <h3>Automated Job Completion Alerts</h3>
+                        <p>Maximize your productivity. Start one or multiple article generations, close the tab, and get back to your work. You'll receive an automatic email alert the moment your content is ready for review. No more waiting or refreshing - just finished articles delivered to your inbox.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="audience section-padding">
+            <div class="container">
+                <div class="section-header center">
+                    <h2 class="section-title">Built for Content Creators Like You</h2>
+                    <p class="section-subtitle">Whether you're just starting or scaling to thousands of posts</p>
+                </div>
+
+                <div class="audience-grid">
+                    <div class="audience-card">
+                        <div class="audience-icon">📝</div>
+                        <h3>Content Marketers & Strategists</h3>
+                        <p>Automate your content calendar and focus on high-level strategy.</p>
+                    </div>
+
+                    <div class="audience-card">
+                        <div class="audience-icon">🎯</div>
+                        <h3>SEO Professionals</h3>
+                        <p>Efficiently build topical authority and generate link-worthy content for your clients or your own sites.</p>
+                    </div>
+
+                    <div class="audience-card">
+                        <div class="audience-icon">💰</div>
+                        <h3>Niche Site Builders & Affiliates</h3>
+                        <p>Rapidly populate your sites with in-depth, keyword-rich articles that attract organic traffic.</p>
+                    </div>
+
+                    <div class="audience-card">
+                        <div class="audience-icon">🏢</div>
+                        <h3>Digital Agencies</h3>
+                        <p>Scale content production for multiple clients without scaling your team.</p>
+                    </div>
+
+                    <div class="audience-card">
+                        <div class="audience-icon">🚀</div>
+                        <h3>Busy Entrepreneurs & Bloggers</h3>
+                        <p>Reclaim your time while consistently publishing valuable content to grow your audience.</p>
+                    </div>
+
+                    <div class="audience-card">
+                        <div class="audience-icon">🌐</div>
+                        <h3>Multi-Language Publishers</h3>
+                        <p>Expand globally with native-quality content in 50+ languages without hiring translators or local writers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials section-padding" id="testimonials">
+            <div class="container">
+                <div class="section-header center">
+                    <h2 class="section-title">Real Results. Real Revenue.</h2>
+                </div>
+
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                        <blockquote class="testimonial-quote">
+                            "From 50 to 500 articles monthly. Traffic up 847% in 6 months."
+                        </blockquote>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">TR</div>
+                            <div class="author-info">
+                                <div class="author-name">TechReview Hub</div>
+                                <div class="author-role">Content Site Owner</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                        <blockquote class="testimonial-quote">
+                            "Replaced our $8,000/month content team. Quality is actually better."
+                        </blockquote>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">MC</div>
+                            <div class="author-info">
+                                <div class="author-name">Marcus Chen</div>
+                                <div class="author-role">Digital Agency Owner</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                        <blockquote class="testimonial-quote">
+                            "Generated 1,000 location pages. Now dominate local search."
+                        </blockquote>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">SM</div>
+                            <div class="author-info">
+                                <div class="author-name">Sarah Martinez</div>
+                                <div class="author-role">SEO Consultant</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                        <blockquote class="testimonial-quote">
+                            "The deeper research finds insights competitors completely miss."
+                        </blockquote>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">CP</div>
+                            <div class="author-info">
+                                <div class="author-name">ContentScale Pro</div>
+                                <div class="author-role">Content Professional</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="pricing section-padding" id="pricing">
+            <div class="container">
+                <div class="section-header center">
+                    <h2 class="section-title">Choose Your Plan</h2>
+                </div>
+
+                <div class="pricing-grid pricing-grid-two">
+                    <div class="pricing-card pricing-card-featured">
+                        <div class="pricing-badge">Most Popular</div>
+                        <div class="pricing-header">
+                            <h3 class="pricing-title">Pro</h3>
+                            <div class="pricing-price">
+                                <span class="price-strike">$99</span>
+                                <span class="price-amount">$59</span>
+                                <span class="price-period">/year</span>
+                            </div>
+                            <div class="pricing-save">Save 40% - Limited Time</div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>Unlimited monthly posts. Scale without limits</li>
+                            <li>Customizable article length. From quick updates to 5,000+ word pillar content</li>
+                            <li>Unlimited chapters. Create comprehensive guides and tutorials</li>
+                            <li>AI-generated featured image. Professional visuals for every post</li>
+                            <li>AI chapter images. Enhanced visual engagement throughout</li>
+                            <li>Two-tier deep research. Authoritative, data-backed content</li>
+                            <li>Smart internal & external linking. Boost SEO automatically</li>
+                            <li>Auto-assign categories. Perfect organization every time</li>
+                            <li>Auto-generate SEO tags. Maximum discoverability</li>
+                            <li>Full SEO metadata (Coming soon). Complete optimization suite</li>
+                            <li>Context-aware content (Coming soon). Brand-specific accuracy</li>
+                            <li>Parallel post creation (Coming soon). Massive scale capability</li>
+                            <li>Advanced error handling (Coming soon). Auto-retry & robust logging</li>
+                            <li>Multiple AI models (Coming soon). GPT, Gemini, Flux & more</li>
+                            <li>Automated Job Completion Alert (Coming soon). Automatic email notification</li>
+                        </ul>
+                        <p class="pricing-ideal">Perfect for: Serious content creators</p>
+                        <a href="https://aiautomationpro.org/products/blog-automator-ai-wordpress-plugin-pro-version/" class="btn btn-primary btn-block">Get Pro Access</a>
+                    </div>
+
+                    <div class="pricing-card">
+                        <div class="pricing-header">
+                            <h3 class="pricing-title">Lifetime</h3>
+                            <div class="pricing-price">
+                                <span class="price-strike">$199</span>
+                                <span class="price-amount">$149</span>
+                                <span class="price-period">one-time</span>
+                            </div>
+                            <div class="pricing-save">Save $50 - Limited Time</div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>Everything in Pro</li>
+                            <li>Lifetime updates</li>
+                            <li>No recurring fees</li>
+                            <li>Early access to new features</li>
+                            <li>Best value for long-term users</li>
+                        </ul>
+                        <p class="pricing-ideal">Perfect for: Smart investors</p>
+                        <a href="#" class="btn btn-secondary btn-block">Coming Soon</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="roi section-padding">
+            <div class="container">
+                <div class="section-header center">
+                    <h2 class="section-title">The Math Every Content Creator Should Know</h2>
+                </div>
+
+                <div class="roi-comparison">
+                    <div class="roi-card roi-card-traditional">
+                        <h3>Traditional Content</h3>
+                        <ul class="roi-list">
+                            <li>Freelance writer: <strong>$150/article</strong></li>
+                            <li>30 articles/month: <strong>$4,500</strong></li>
+                            <li>Annual cost: <strong class="text-error">$54,000</strong></li>
+                            <li>Time to publish: <strong>3-5 days</strong></li>
+                        </ul>
+                    </div>
+
+                    <div class="roi-card roi-card-automator">
+                        <h3>Blog Automator Pro</h3>
+                        <ul class="roi-list">
+                            <li>Pro license: <strong>$59/year</strong></li>
+                            <li>API costs: <strong>~$10/month</strong></li>
+                            <li>Annual cost: <strong class="text-success">$179</strong></li>
+                            <li>Time to publish: <strong>3-5 minutes</strong></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="workflow-comparison">
+                    <div class="workflow-side workflow-traditional">
+                        <h3>Traditional Workflow</h3>
+                        <div class="workflow-steps">
+                            <div class="workflow-step">
+                                <span class="step-icon">⏰</span>
+                                <span>Hours of research</span>
+                            </div>
+                            <div class="workflow-step">
+                                <span class="step-icon">✍️</span>
+                                <span>Manual writing</span>
+                            </div>
+                            <div class="workflow-step">
+                                <span class="step-icon">🔍</span>
+                                <span>Manual SEO optimization</span>
+                            </div>
+                            <div class="workflow-step">
+                                <span class="step-icon">🖼️</span>
+                                <span>Find & edit images</span>
+                            </div>
+                            <div class="workflow-step">
+                                <span class="step-icon">📝</span>
+                                <span>Format & publish</span>
+                            </div>
+                        </div>
+                        <div class="workflow-result">
+                            <strong>Result: 6-8 hours per article</strong>
+                        </div>
+                    </div>
+
+                    <div class="workflow-vs">
+                        <div class="vs-icon">⚡</div>
+                        <div class="vs-text">VS</div>
+                    </div>
+
+                    <div class="workflow-side workflow-automated">
+                        <h3>Blog Automator</h3>
+                        <div class="workflow-steps">
+                            <div class="workflow-step">
+                                <span class="step-icon">🎯</span>
+                                <span>Enter topic</span>
+                            </div>
+                            <div class="workflow-step">
+                                <span class="step-icon">🤖</span>
+                                <span>AI does everything</span>
+                            </div>
+                            <div class="workflow-step">
+                                <span class="step-icon">✅</span>
+                                <span>Perfect article ready</span>
+                            </div>
+                        </div>
+                        <div class="workflow-result workflow-result-success">
+                            <strong>Result: 3-5 minutes per article</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="roi-savings">
+                    <p class="roi-savings-label">Your Savings:</p>
+                    <p class="roi-savings-amount">$53,821/year</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq section-padding" id="faq">
+            <div class="container">
+                <div class="section-header center">
+                    <h2 class="section-title">Frequently Asked Questions</h2>
+                </div>
+
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Is the content actually unique?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>100% unique. Every article is freshly generated based on real-time research. No templates, no spinning, no duplicate content.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Do I need technical skills?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>If you can install a WordPress plugin, you can use Blog Automator. It's that simple.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>What about Google penalties?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Our content passes all AI detection tools. More importantly, it provides real value - which is what Google actually rewards.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>How much do API costs add?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Typically $0.01-0.02 per article. Most users spend under $10/month generating hundreds of posts.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Can I customize the output?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Completely. Control tone, style, length, structure, and more. Or use our optimized defaults.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="guarantee">
+                    <h3>14-Day Money-Back Guarantee</h3>
+                    <p>Try Blog Automator Pro risk-free. If you're not satisfied within 14 days, we'll refund every penny.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="final-cta section-padding" id="cta">
+            <div class="container">
+                <div class="cta-box">
+                    <h2 class="cta-title">Stop Trading Time for Content. Start Trading Content for Traffic.</h2>
+                    <p class="cta-description">Every day you wait, competitors publish 10 more articles. They rank for your keywords. They capture your customers.</p>
+                    <p class="cta-tagline">Blog Automator changes that equation. Forever.</p>
+
+                    <div class="cta-buttons">
+                        <a href="#pricing" class="btn btn-primary btn-lg btn-cta-main">Get Pro - Save 40%</a>
+                        <a href="#pricing" class="btn btn-secondary btn-lg">View Lifetime Deal</a>
+                    </div>
+
+                    <p class="cta-note">14-day money-back guarantee • Priority support included</p>
+                </div>
+
+                <div class="ps-section">
+                    <h3>P.S. The Early Advantage</h3>
+                    <p>The best time to plant a tree was 20 years ago. The second best time is now.</p>
+                    <p>Content compounds. Articles you publish today drive traffic for years.</p>
+                    <p><strong>While competitors debate AI ethics, smart content creators quietly dominate search results.</strong></p>
+                    <p class="ps-question">Which side will you be on?</p>
+                    <a href="#pricing" class="btn btn-primary">Start Automating Your Content Pipeline</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Blog Automator AI. Tất cả quyền được bảo lưu.</p>
-            <p style="margin-top: 1rem;">Cỗ máy nội dung WordPress tự động hóa hoàn toàn</p>
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="images/logo-icon-32.png" alt="Blog Automator AI" class="logo-icon">
+                        <span class="logo-text">Blog Automator AI</span>
+                    </div>
+                    <p class="footer-tagline">A Product of AI Automation Pro</p>
+                </div>
+
+                <nav class="footer-nav">
+                    <a href="#home">Home</a>
+                    <a href="#features">Features</a>
+                    <a href="#testimonials">Testimonials</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="#faq">FAQ</a>
+                </nav>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 AI Automation Pro. All rights reserved.</p>
+                <p class="footer-disclaimer">WordPress® is a registered trademark of the WordPress Foundation.</p>
+            </div>
         </div>
     </footer>
+
+    <script src="js/main.js"></script>
 </body>
 </html>
