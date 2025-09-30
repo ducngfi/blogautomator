@@ -1308,7 +1308,7 @@ a:hover {
     text-align: center;
   }
 
-/* Mobile Container & Spacing */
+  /* Mobile Container & Spacing */
   .container {
     padding: 0 var(--space-md);
   }
