@@ -110,7 +110,7 @@ function initScrollAnimations() {
   animatedElements.forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    // Don't set transition inline - let CSS handle it
     observer.observe(el);
   });
 }
