@@ -29,10 +29,10 @@
 <body>
     <header class="header">
         <nav class="nav container">
-            <div class="nav-brand">
+            <a href="#home" class="nav-brand">
                 <img src="images/logo-icon-32.png" alt="Blog Automator AI" data-key="nav.logo_alt" class="logo-icon">
                 <span class="logo-text" data-key="nav.logo_text">Blog Automator AI</span>
-            </div>
+            </a>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#features">Features</a></li>
@@ -704,21 +704,29 @@
                     <p class="footer-tagline" data-key="footer.tagline">Transform any topic into SEO-optimized articles in minutes. Powered by deep AI research and smart automation.</p>
                 </div>
 
-                <nav class="footer-nav">
-                    <a href="#home" data-key="nav.home">Home</a>
-                    <a href="#features" data-key="nav.features">Features</a>
-                    <a href="#testimonials" data-key="nav.testimonials">Testimonials</a>
-                    <a href="#pricing" data-key="nav.pricing">Pricing</a>
-                    <a href="#faq" data-key="nav.faq">FAQ</a>
-                    <a href="https://aiautomationpro.org/docs-category/blog-automator-pro/" target="_blank">Documentation</a>
-                    <a href="https://aiautomationpro.org/create-new-ticket/" target="_blank">Support</a>
-                    <a href="https://aiautomationpro.org/contact/" target="_blank">Contact</a>
-                </nav>
+                <div class="footer-column">
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <nav class="footer-nav">
+                        <a href="#home">Home</a>
+                        <a href="#features">Features</a>
+                        <a href="#testimonials">Testimonials</a>
+                        <a href="#pricing">Pricing</a>
+                        <a href="https://aiautomationpro.org/contact/" target="_blank">Contact</a>
+                    </nav>
+                </div>
+
+                <div class="footer-column">
+                    <h4 class="footer-heading">Resources</h4>
+                    <nav class="footer-nav">
+                        <a href="https://aiautomationpro.org/docs-category/blog-automator-pro/" target="_blank">Documentation</a>
+                        <a href="https://aiautomationpro.org/create-new-ticket/" target="_blank">Support</a>
+                        <a href="#faq">FAQ</a>
+                    </nav>
+                </div>
             </div>
 
             <div class="footer-bottom">
                 <p data-key="footer.copyright">&copy; 2025 AI Automation Pro. All rights reserved.</p>
-                <p class="footer-disclaimer" data-key="footer.disclaimer">WordPress® is a registered trademark of the WordPress Foundation.</p>
             </div>
         </div>
     </footer>
