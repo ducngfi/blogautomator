@@ -661,6 +661,39 @@ a:hover {
   color: var(--color-gray-500);
 }
 
+.pricing-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin: var(--space-2xl) auto var(--space-3xl);
+  background: var(--color-gray-100);
+  border-radius: var(--radius-full);
+  padding: var(--space-1);
+  max-width: 400px;
+}
+
+.toggle-option {
+  flex: 1;
+  padding: var(--space-3) var(--space-6);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-600);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.toggle-option.active {
+  background: var(--color-white);
+  color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.toggle-option:hover:not(.active) {
+  color: var(--color-gray-800);
+}
+
 .pricing-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -706,7 +739,6 @@ a:hover {
 
 .pricing-card-featured::before {
   content: '';
-  position: absolute;
   top: 0;
   left: -100%;
   width: 100%;

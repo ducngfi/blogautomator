@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initFAQ();
   initScrollAnimations();
   initHeaderScroll();
+  initPricingToggle();
 });
 
 function initMobileNav() {
@@ -127,6 +128,32 @@ function initHeaderScroll() {
     } else {
       header.style.boxShadow = '0 1px 2px 0 rgba(0, 0, 0, 0.05)';
     }
+  });
+}
+
+function initPricingToggle() {
+  const toggleButtons = document.querySelectorAll('.toggle-option');
+  const priceElements = document.querySelectorAll('[data-annual][data-lifetime]');
+
+  if (!toggleButtons.length || !priceElements.length) return;
+
+  toggleButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Update active state
+      toggleButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      const plan = button.dataset.plan;
+
+      // Update prices and periods
+      priceElements.forEach(element => {
+        if (plan === 'annual') {
+          element.textContent = element.dataset.annual;
+        } else {
+          element.textContent = element.dataset.lifetime;
+        }
+      });
+    });
   });
 }
 
